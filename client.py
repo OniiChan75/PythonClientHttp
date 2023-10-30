@@ -1,5 +1,14 @@
-#client tcp connect to HTTP server
 import socket
+import json
+
+def read_config(file_path):
+    try:
+        with open(file_path, 'r') as config_file:
+            config = json.load(config_file)
+        return config
+    except FileNotFoundError:
+        print(f"Config file '{file_path}' not found.")
+        return None
 
 def send_http_request(host, port, path):
     # Create a TCP socket
@@ -30,8 +39,12 @@ def send_http_request(host, port, path):
     print(response.decode())
 
 if __name__ == "__main__":
-    host = "192.168.1.90"  # Replace with the host of the HTTP server you want to connect to
-    port = 80  # Default HTTP port
-    path = "/"  # Request path
+    config = read_config("config.json")
+    
+    if config:
+        host = config.get("host")
+        port = config.get("port")
+        path = config.get("path")
 
     send_http_request(host, port, path)
+
