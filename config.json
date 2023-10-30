@@ -1,5 +1,5 @@
 {
-    "host": "192.168.1.90",
-    "port": 3000,
-    "path": "/next-page"
+    "host": "your_http_server_ip_or_domain",
+    "port": 80,
+    "path": "/"
 }
